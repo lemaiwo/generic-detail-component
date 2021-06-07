@@ -1,0 +1,28 @@
+specVersion: '1.0'
+metadata:
+  name: 'detailcomponentgeneric'
+type: application
+ui5Theme: sap_fiori_3
+server:
+  customMiddleware:
+  - name: fiori-tools-proxy
+    afterMiddleware: compression
+    configuration:
+      ignoreCertError: false # If set to true, certificate errors will be ignored. E.g. self-signed certificates will be accepted
+      backend:
+      - path: /resources/be/wl/zcomploaderlib
+        pathPrefix: /sap/bc/ui5_ui5/sap/zcomploader_lib
+        url: http://saps4hsrv.westeurope.cloudapp.azure.com:8003
+      - path: /sap
+        url: http://saps4hsrv.westeurope.cloudapp.azure.com:8003
+      ui5:
+        path: 
+        - /resources
+        - /test-resources
+        url: https://ui5.sap.com
+        version:  # The UI5 version, for instance, 1.78.1. Empty means latest version
+  - name: fiori-tools-appreload
+    afterMiddleware: compression
+    configuration:
+     port: 35729
+     path: webapp
